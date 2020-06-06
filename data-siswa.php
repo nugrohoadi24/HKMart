@@ -4,6 +4,14 @@
     $datasiswa='dataSiswa/';
     $tampil_siswa=$database->getReference($datasiswa)->getValue();
 
+    $dataadmin='dataAdmin/';
+    $tampil_admin=$database->getReference($dataadmin)->getValue();
+    if(!isset($_SESSION['nama'])) {
+       header('location:login.php'); 
+    } else { 
+       $nama = $_SESSION['nama']; 
+    }
+
                 if(isset($_POST["tambah"])){
                 
                 $nama_depan=$_POST['namaDepan'];
@@ -11,8 +19,14 @@
                 $full_name=$nama_depan." ".$nama_belakang;
                 
                 foreach($tampil_siswa as $tampil_data => $data){
-                  echo $data['NAMA'];
-                  if($data['ID']!=$_POST['username']){
+                  if($_POST['username']==$data['ID']){
+                    echo "<script>alert('Username telah digunakan!')</script>";
+                    $break=1;
+                    break;
+                  }
+                }
+                if(isset($break)){
+                  }else{
                     if(!empty($full_name) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['alamat']) && !empty($_POST['saldo'])) {
                       if($_POST['password'] != $_POST['repeat']){
                         echo "<script>alert('Password tidak sama!')</script>";
@@ -32,16 +46,8 @@
                               }
                             }
                           }
-                      break;
-                  }else{
-                    echo "<script>alert('Username telah digunakan!')</script>";
-                    break;
                   }
                 }
-
-
-                
-                      }
 ?>
 
 <!DOCTYPE html>
@@ -213,9 +219,7 @@
                 </a>
               </div>
             </li>
-
           </ul>
-
         </nav>
         <!-- End of Topbar -->
 
@@ -223,8 +227,8 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">Data Siswa</h1>
+          <p class="mb-4">Data Siswa yang terdaftar pada Pondok Pesantren Husnul Khatimah<a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 
           <!-- DataTales Example -->
           <form class="user" action="" method="post">
@@ -359,7 +363,7 @@
         <div class="modal-body">Silahan Pilih Logout jika ingin keluar dari Akun ini.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

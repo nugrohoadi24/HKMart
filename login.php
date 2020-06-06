@@ -3,6 +3,11 @@
     include 'php/koneksi.php';
     $login_data=$database->getReference('dataAdmin/')->getValue();
 
+   session_start();
+   if(isset($_SESSION['username'])) {
+   header('location:index.php'); }
+   require_once("php/koneksi.php");
+
     foreach($login_data as $tampil_data => $data){
       if ($data['ID']==$_POST['id'] and $data['PASSWORD']==$_POST['pass']) {
         $_SESSION['id']=$data["ID"];
@@ -57,6 +62,7 @@
 
         <div class="card o-hidden border-0 shadow-lg my-5">
           <div class="card-body p-0">
+            
             <!-- Nested Row within Card Body -->
             <div class="row">
               <img class="col-lg-6 d-none d-lg-block bg-login" style="width: 25rem;" src="img/FotoHK.jpg" alt="">
@@ -86,9 +92,9 @@
                     </div>
                   </form>
                   <hr>
-                  <div class="text-center">
+<!--                   <div class="text-center">
                     <a class="small" href="register.php">Buat Akun!</a>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>

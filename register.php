@@ -11,8 +11,14 @@
                 $full_name=$nama_depan." ".$nama_belakang;
                 
                 foreach($tampil_admin as $tampil_data => $data){
-                  echo $data['ID'];
-                  if($data['ID']!=$_POST['username']){
+                  if($_POST['username']==$data['ID']){
+                    echo "<script>alert('Username telah digunakan!')</script>";
+                    $break=1;
+                    break;
+                  }
+                }
+                if(isset($break)){
+                }else{
                     if(!empty($full_name) && !empty($_POST['email']) && !empty($_POST['pass'])) {
                       if($_POST['pass'] != $_POST['repeatPass']){
                         echo "<script>alert('Password tidak sama!')</script>";
@@ -33,16 +39,8 @@
                               }
                             }
                           }
-                      break;
-                  }else{
-                    echo "<script>alert('Username telah digunakan!')</script>";
-                    break;
-                  }
-                }
-
-
-                
-                      }
+                      }        
+                    }
 
 
     ?>

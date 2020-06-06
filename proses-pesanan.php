@@ -5,11 +5,6 @@
     $idtransaksi=date('ymdhis');
     // $input= new PhpFirebase($ath);
     $uniq=date('Ymdhis');
-    
-    // if(isset($_POST["bayarqr"])){
-    //   $referencedelete='dataTemporary/';
-    //   $hapusdata=$database->getReference($referencedelete)->remove();
-    // }
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +37,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Husnul Khatimah</div>
+        <div class="sidebar-brand-text mx-3">SKRIPSI - ADI</div>
       </a>
 
       <!-- Divider -->
@@ -160,10 +155,10 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <!-- <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$_SESSION['nama']?></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
+              </a> -->
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -172,9 +167,7 @@
                 </a>
               </div>
             </li>
-
           </ul>
-
         </nav>
         <!-- End of Topbar -->
 
@@ -182,8 +175,8 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Data Barang</h1>
-          <p class="mb-4">Data Barang yang tersedia di Husnul Khatimah Mart</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">Petunjuk Pengisian</h1><br>
+          <p class="mb-4">1. Silahkan pilih secara bebas pembayaran yang ingin dilakukan (Hanya Simulasi)<br>2. Mohon maaf jika proses lama (Karena beberapa orang juga mengakses)<br>3. Terimakasih sudah membantu saya dalam mengumpulkan data, Semoga Allah balas dengan yang terbaik.</a></p>
           <form action="prosespesanan.php" method="post" name="form">
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -263,7 +256,7 @@
               </table>
 
               
-                <div class="form-group">
+                <div class="form-group text-center">
                 <label>Metode Pembayaran</label>
                 </div>
                 <div class="form-row row">
@@ -276,7 +269,7 @@
                     <div class="collapse" id="qr">
                     <form action="tambah-pesanan.php">
                         <Button type="submit" name="bayarqr" class="btn btn-primary btn-block">Sudah bayar dengan QR!</Button>
-                        <form action="tambah-pesanan.php">
+                    </form>
                     </div>
                   </div>
 
@@ -300,16 +293,28 @@
                         }
                       }
                         ?>
-
-                        <Button type="submit" name="Bayar" value="tunai" class="btn btn-primary btn-block">Bayar dengan Tunai!</Button>
+                        <Button type="submit" name="Bayar" value="tunai" class="btn btn-primary btn-block">Sudah bayar dengan Tunai!</Button>
                       </div>
                     </form>
-                  </div>
-                
+                  </div>   
                 </div>
-              
             </div>
           </div>
+          <hr>
+              <!-- <div class="form-group text-center">
+                <form action="batalpesanan.php" method="post">
+                <label>Apakah ingin membatalkan pembayaran?</label>
+                <button type="submit" class="btn btn-primary btn-block" name="batal"><i class="fa fa-logout"></i>Batal Bayar</button>
+                <?php 
+                    if(isset($_POST["batal"])){
+                    $referencedelete='dataTemporary/';
+                    $hapusdata=$database->getReference($referencedelete)->remove();
+
+                  // header('location: tambah-pesanan.php');
+                  }
+                ?>
+                </form>
+              </div>        -->
         <!-- /.container-fluid -->
         <!-- </form> -->
       </div>
@@ -349,7 +354,7 @@
         <div class="modal-body">Silahan Pilih Logout jika ingin keluar dari Akun ini.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.php">Logout</a>
+          <a class="btn btn-primary" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

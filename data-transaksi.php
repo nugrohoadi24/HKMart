@@ -1,3 +1,19 @@
+  <?php
+    include 'php/koneksi.php';
+
+    $datatransaksi='dataBarang/';
+    $tampil_transaksi=$database->getReference($datatransaksi)->getValue();
+
+    $dataadmin='dataAdmin/';
+    $tampil_admin=$database->getReference($dataadmin)->getValue();
+    if(!isset($_SESSION['nama'])) {
+       header('location:login.php'); 
+    } else { 
+       $nama = $_SESSION['nama']; 
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,13 +37,6 @@
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
-
-  <?php
-    include 'php/koneksi.php';
-
-    $datatransaksi='dataBarang/';
-    $tampil_transaksi=$database->getReference($datatransaksi)->getValue();
-    ?>
 
 </head>
 
@@ -234,11 +243,11 @@
                       <td><?=$no++?></td>
                       <td><?php  echo $tampil_transaksi_final['PLU']; ?></td>
                       <td><?php  echo $tampil_transaksi_final['BRAND']; ?></td>
+                      <td style="width: 10%"><?php  echo "Rp. ".number_format($beli); ?></td>                      
                       <td style="width: 10%"><?php  echo "Rp. ".number_format($jual); ?></td>
-                      <td style="width: 10%"><?php  echo "Rp. ".number_format($beli); ?></td>
                       <td style="width: 10%" class="text-center"><?php  echo $qty; ?></td>
-                      <td style="width: 10%"><?php  echo "Rp. ".number_format($jual*$qty); ?></td>
                       <td style="width: 10%"><?php  echo "Rp. ".number_format($beli*$qty); ?></td>
+                      <td style="width: 10%"><?php  echo "Rp. ".number_format($jual*$qty); ?></td>
                       <td style="width: 10%"><?php  echo "Rp. ".number_format(($jual-$beli)*$qty); ?></td>
                     </tr>
                         <?php } ?>
@@ -288,7 +297,7 @@
         <div class="modal-body">Silahan Pilih Logout jika ingin keluar dari Akun ini.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

@@ -1,3 +1,18 @@
+<?php
+    include 'php/koneksi.php';
+
+    $datatransaksi='dataBarang/';
+    $tampil_transaksi=$database->getReference($datatransaksi)->getValue();
+
+    $dataadmin='dataAdmin/';
+    $tampil_admin=$database->getReference($dataadmin)->getValue();
+    if(!isset($_SESSION['nama'])) {
+       header('location:login.php'); 
+    } else { 
+       $nama = $_SESSION['nama']; 
+    }
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,13 +32,6 @@
 
   <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-  <?php
-    include 'php/koneksi.php';
-
-    $datatransaksi='dataBarang/';
-    $tampil_transaksi=$database->getReference($datatransaksi)->getValue();
-    ?>
 
 </head>
 

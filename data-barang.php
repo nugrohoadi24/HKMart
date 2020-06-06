@@ -1,40 +1,48 @@
 <?php
 include 'php/koneksi.php';
-
+error_reporting(0);
 $databarang='dataBarang/';
 $tampil_barang=$database->getReference($databarang)->getValue();
+
+$dataadmin='dataAdmin/';
+$tampil_admin=$database->getReference($dataadmin)->getValue();
+if(!isset($_SESSION['nama'])) {
+   header('location:login.php'); 
+} else { 
+   $nama = $_SESSION['nama']; 
+}
+
+$setplu=$_POST['plu'];
 
 if(isset($_POST["tambah"])){
   $qty=0;
   $profit=$_POST['sale']-$_POST['cost'];
   $num=0;
+  $sale=$num+$_POST['sale'];
+  $cost=$num+$_POST['cost'];
+  $plu=$num+$_POST['plu'];
+
   foreach($tampil_barang as $tampil_data => $data){
-    
     if ($_POST['plu']==$data['PLU']) {
       echo "<script>alert('PLU sudah digunakan')</script>";
       $break=1;
       break;
     }
-
-      $num++;//kok nilainya dikali dua malah
   }
 
   if (isset($break)) { 
-                  # code...
   }else{
-    $reference='dataBarang/';
+    $reference='dataBarang/'.$setplu;
     $data=[
-      'PLU'                  =>  $_POST['plu'],
+      'PLU'                  =>  $plu,
       'BRAND'                =>  $_POST['brand'],
-      'COSTPRICE'            =>  $_POST['cost'],
-      'NETSALES'             =>  $_POST['sale'],
+      'COSTPRICE'            =>  $cost,
+      'NETSALES'             =>  $sale,
       'PROFIT'               =>  $profit,
       'QTY_TERJUAL'          =>  $qty
       
     ];
-
-                              // $pushdata=$database->getReference($reference)->push($data);
-    if ($database->getReference($reference)->push($data)) {
+    if ($database->getReference($reference)->set($data)) {
                                 header('location: data-barang.php');
     }
   }
@@ -241,11 +249,11 @@ if(isset($_POST["tambah"])){
                     </div>
                     <div class="form-group">
                       <input type="number" class="form-control form-control-user" required name="cost" value="<?php
-                      if(isset($_POST['cost'])){echo $_POST['cost'];} ?>" placeholder="Harga Beli">
+                      if(isset($_POST['cost'])){echo trim($_POST['cost'], '"');} ?>" placeholder="Harga Beli">
                     </div>
                     <div class="form-group">
                       <input type="number" class="form-control form-control-user" required name="sale" value="<?php
-                      if(isset($_POST['sale'])){echo $_POST['sale'];} ?>" placeholder="Harga Jual">
+                      if(isset($_POST['sale'])){echo trim($_POST['sale']);} ?>" placeholder="Harga Jual">
                     </div>
                     <button class="btn btn-primary btn-user btn-block" type="submit" name="tambah">Tambah Barang</button>
                   </div>
@@ -343,7 +351,7 @@ if(isset($_POST["tambah"])){
             <div class="modal-body">Silahan Pilih Logout jika ingin keluar dari Akun ini.</div>
             <div class="modal-footer">
               <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-              <a class="btn btn-primary" href="login.html">Logout</a>
+              <a class="btn btn-primary" href="logout.php">Logout</a>
             </div>
           </div>
         </div>

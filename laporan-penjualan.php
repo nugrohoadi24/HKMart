@@ -1,3 +1,18 @@
+  <?php
+    include 'php/koneksi.php';
+
+    $databarang='dataBarang/';
+    $tampil_barang=$database->getReference($databarang)->getValue();
+
+    $dataadmin='dataAdmin/';
+    $tampil_admin=$database->getReference($dataadmin)->getValue();
+    if(!isset($_SESSION['nama'])) {
+       header('location:login.php'); 
+    } else { 
+       $nama = $_SESSION['nama']; 
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,13 +38,6 @@
 
   <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
   
-
-  <?php
-    include 'php/koneksi.php';
-
-    $databarang='dataBarang/';
-    $tampil_barang=$database->getReference($databarang)->getValue();
-    ?>
 
 </head>
 
@@ -281,7 +289,7 @@
         <div class="modal-body">Silahan Pilih Logout jika ingin keluar dari Akun ini.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

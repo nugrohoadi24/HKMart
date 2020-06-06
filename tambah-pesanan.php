@@ -4,11 +4,9 @@
     $databarang='dataBarang/';
     $tampil_barang=$database->getReference($databarang)->getValue();
     
-
     ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
   <meta charset="utf-8">
@@ -49,7 +47,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Husnul Khatimah</div>
+        <div class="sidebar-brand-text mx-3">SKRIPSI - ADI</div>
       </a>
 
       <!-- Divider -->
@@ -167,10 +165,10 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$_SESSION['nama']?></span>
+<!--               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="name"><?=$_SESSION['nama']?></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
+              </a> -->
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -189,8 +187,8 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Pembelian Barang Husnul Khatimah Mart</h1>
-          <p class="mb-4">Silahkan masukkan kode barang yang ingin dibeli pada kolom pencarian, kemudian tambahkan Quantity dan masukkan ke keranjang</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">Petunjuk Pengisian</h1><hr>
+          <p class="mb-4">1. Silahkan Pilih Barangnya<hr>2. Pilih jumlah quantitynya<hr>3. Klik Masukkan kedalam Keranjang<hr>4. Klik Checkout<hr></a>.</p>
 
           <!-- Daftar Pesanan -->
           <form action="proses-pesanan.php" method="post">
@@ -272,8 +270,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-
-                <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -360,7 +357,7 @@
         <div class="modal-body">Silahan Pilih Logout jika ingin keluar dari Akun ini.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="logout.php">Logout</a>
         </div>
       </div>
     </div>
