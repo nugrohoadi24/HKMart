@@ -186,7 +186,7 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Petunjuk Pengisian</h1><hr>
-          <p class="mb-4">1. Silahkan Pilih Barangnya<hr>2. Pilih jumlah quantitynya<hr>3. Klik Masukkan kedalam Keranjang<hr>4. Klik Checkout<hr></a>.</p>
+          <p class="mb-4">1. Silahkan Pilih Barangnya<hr>2. Pilih jumlah quantitynya <b>MAKSIMAL 10</b><hr>3. Klik Masukkan kedalam Keranjang<hr>4. Klik Checkout<hr></a>.</p>
 
           <!-- Daftar Pesanan -->
           <form action="proses-pesanan.php" method="post">
