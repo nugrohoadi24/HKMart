@@ -27,39 +27,39 @@
 <body id="page-top">
 
   <!-- Page Wrapper -->
-  <div id="wrapper">
+  <!-- <div id="wrapper"> -->
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <!-- <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"> -->
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+     <!--  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
         <div class="sidebar-brand-text mx-3">SKRIPSI - ADI</div>
-      </a>
+      </a> -->
 
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+  <!--     <hr class="sidebar-divider my-0"> -->
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
+<!--       <li class="nav-item">
         <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
-      </li>
+      </li> -->
 
       <!-- Divider -->
-      <hr class="sidebar-divider">
-
+  <!--     <hr class="sidebar-divider">
+ -->
       <!-- Heading -->
-      <div class="sidebar-heading">
+<!--       <div class="sidebar-heading">
         Interface
-      </div>
+      </div> -->
 
       <!-- Nav Item - Warehouse Collapse Menu -->
-      <li class="nav-item">
+  <!--     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
           <span>Warehouse</span>
@@ -71,10 +71,10 @@
             <a class="collapse-item" href="data-transaksi.php">Data Transaksi</a>
           </div>
         </div>
-      </li>
+      </li> -->
 
       <!-- Nav Item - Manage Collapse Menu -->
-      <li class="nav-item">
+ <!--      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
           <span>Manage</span>
@@ -88,22 +88,22 @@
             <a class="collapse-item" href="generate-qr.php">Generate QR Code</a>
           </div>
         </div>
-      </li>
+      </li> -->
 
       <!-- Divider -->
-      <hr class="sidebar-divider">
+      <!-- <hr class="sidebar-divider"> -->
 
       <!-- Heading -->
-      <div class="sidebar-heading">
+<!--       <div class="sidebar-heading">
         Addons
-      </div>
+      </div> -->
 
       <!-- Nav Item - Rekomendasi Stok -->
-      <li class="nav-item">
+ <!--      <li class="nav-item">
         <a class="nav-link" href="rekomendasi-stok.php">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Rekomendasi Stok</span></a>
-      </li>
+      </li> -->
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
