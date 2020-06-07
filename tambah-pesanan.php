@@ -4,13 +4,13 @@
     $databarang='dataBarang/';
     $tampil_barang=$database->getReference($databarang)->getValue();
 
-    $dataadmin='dataAdmin/';
-    $tampil_admin=$database->getReference($dataadmin)->getValue();
-    if(!isset($_SESSION['nama'])) {
-       header('location:login.php'); 
-    } else { 
-       $nama = $_SESSION['nama']; 
-    }
+    // $dataadmin='dataAdmin/';
+    // $tampil_admin=$database->getReference($dataadmin)->getValue();
+    // if(!isset($_SESSION['nama'])) {
+    //    header('location:login.php'); 
+    // } else { 
+    //    $nama = $_SESSION['nama']; 
+    // }
     
     ?>
 <!DOCTYPE html>
@@ -170,11 +170,11 @@
             </li>
 
             <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
+<!--             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="name"><?=$_SESSION['nama']?></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
+              </a> -->
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
