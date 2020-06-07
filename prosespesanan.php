@@ -35,7 +35,13 @@
 
                           $pushdata=$database->getReference($reference)->set($data);
 
-                          
+                          	$referencegreedy='greedy/'.$idtransaksi."/".$uniq++;
+                          	$data=[
+                          		'BRAND'               =>  $tampil_barang_final['BRAND'] 
+                          	];
+                          	$pushdata=$database->getReference($referencegreedy)->set($data);
+
+
                           foreach ($update_barang as $update_barang_value => $update_barang_final) {
                             $updateByPlu = $tampil_barang_final['PLU'];
 
