@@ -17,9 +17,6 @@ foreach($tampil_barang as $tampil_barang_value => $tampil_barang_final){
 		$peritem  = $tampil_barang_final['NETSALES']*$_POST[$tampil_barang_final['PLU']];
 		$harga    = $harga+$peritem;
 
-
-                            //$jual     = ()+($tampil_barang_final['COSTPRICE']*$_POST[$tampil_barang_final['PLU']]);
-                            //$profit   = ()+($tampil_barang_final['PROFIT']*$_POST[$tampil_barang_final['PLU']]);
 		$qty      = ($tampil_barang_final['QTY_TERJUAL'] + $_POST[$tampil_barang_final['PLU']]);
 		$reference='dataTransaksi/'.$idtransaksi."/".$uniq++;
 		$data=[
