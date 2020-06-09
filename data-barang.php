@@ -7,9 +7,9 @@ $tampil_barang=$database->getReference($databarang)->getValue();
 $dataadmin='dataAdmin/';
 $tampil_admin=$database->getReference($dataadmin)->getValue();
 if(!isset($_SESSION['nama'])) {
-   header('location:login.php'); 
+ header('location:login.php'); 
 } else { 
-   $nama = $_SESSION['nama']; 
+ $nama = $_SESSION['nama']; 
 }
 
 $setplu=$_POST['plu'];
@@ -43,7 +43,7 @@ if(isset($_POST["tambah"])){
       
     ];
     if ($database->getReference($reference)->set($data)) {
-                                header('location: data-barang.php');
+      header('location: data-barang.php');
     }
   }
 
@@ -268,7 +268,6 @@ if(isset($_POST["tambah"])){
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-
                     <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
                       <thead>
                         <tr>
@@ -310,8 +309,8 @@ if(isset($_POST["tambah"])){
                   </div>
                 </div>
               </div>
-
             </div>
+            
             <!-- /.container-fluid -->
 
           </div>
