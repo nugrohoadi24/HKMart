@@ -4,8 +4,6 @@ include 'php/koneksi.php';
 $tampil_barang    = $database->getReference('dataBarang/')->getValue();
 $update_barang    = $database->getReference('dataBarang/')->getValue();
 $tampil_transaksi = $database->getReference('dataTransaksi/')->getValue();
-print_r($tampil_transaksi);
-die();
     //require 'vendor/autoload';
 $idtransaksi=date('ymdhis');
     // $input= new PhpFirebase($ath);
