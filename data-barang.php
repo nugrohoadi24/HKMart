@@ -3,6 +3,7 @@ include 'php/koneksi.php';
 error_reporting(0);
 $databarang='dataBarang/';
 $tampil_barang=$database->getReference($databarang)->getValue();
+$update_barang=$database->getReference($databarang)->getValue();
 
 $dataadmin='dataAdmin/';
 $tampil_admin=$database->getReference($dataadmin)->getValue();
@@ -14,13 +15,16 @@ if(!isset($_SESSION['nama'])) {
 
 $setplu=$_POST['plu'];
 
+//Push Data
 if(isset($_POST["tambah"])){
-  $qty=0;
-  $profit=$_POST['sale']-$_POST['cost'];
+  $qty=0; 
   $num=0;
+  $stok=0;
+  $profit=$_POST['sale']-$_POST['cost'];
   $sale=$num+$_POST['sale'];
   $cost=$num+$_POST['cost'];
   $plu=$num+$_POST['plu'];
+  $stok=$num+$_POST['stok'];
 
   foreach($tampil_barang as $tampil_data => $data){
     if ($_POST['plu']==$data['PLU']) {
@@ -39,7 +43,8 @@ if(isset($_POST["tambah"])){
       'COSTPRICE'            =>  $cost,
       'NETSALES'             =>  $sale,
       'PROFIT'               =>  $profit,
-      'QTY_TERJUAL'          =>  $qty
+      'QTY_TERJUAL'          =>  $qty,
+      'STOK'                 =>  $stok
       
     ];
     if ($database->getReference($reference)->set($data)) {
@@ -47,6 +52,9 @@ if(isset($_POST["tambah"])){
     }
   }
 
+  if ($database->getReference($reference)->set($data)) {
+    header('location: data-barang.php');
+  }
 }
 ?>
 
@@ -233,84 +241,96 @@ if(isset($_POST["tambah"])){
               <p class="mb-4">Data Barang yang tersedia di Husnul Khatimah Mart</a>.</p>
 
               <!-- DataTales Example -->
-              <form class="user" action="" method="post">
+              <form class="user" action="updatebarang.php" method="post">
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Tambah Barang</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Tambah dan Update Barang</h6>
+                    <p class="">Untuk Tambah gunakanlah PLU berbeda dan untuk Update gunakanlah PLU yang sama!</p>
                   </div>
                   <div class="card-body">
                     <div class="form-group">
-                      <input type="number" class="form-control form-control-user" required name="plu" value="<?php
-                      if(isset($_POST['plu'])){echo $_POST['plu'];} ?>" placeholder="PLU atau Kode">
+                      <input type="number" class="form-control form-control-user" required name="PLU" value="<?php
+                      if(isset($_POST['PLU'])){echo trim($_POST['PLU']);}?>" placeholder="PLU atau Kode">
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" required name="brand" value="<?php
-                      if(isset($_POST['brand'])){echo $_POST['brand'];} ?>" placeholder="Nama Produk">
+                      <input type="text" class="form-control form-control-user" required name="BRAND" value="<?php
+                      if(isset($_POST['BRAND'])){echo trim($_POST['BRAND']);}?>" placeholder="Nama Produk">
                     </div>
                     <div class="form-group">
-                      <input type="number" class="form-control form-control-user" required name="cost" value="<?php
-                      if(isset($_POST['cost'])){echo trim($_POST['cost'], '"');} ?>" placeholder="Harga Beli">
+                      <input type="number" class="form-control form-control-user" required name="COSTPRICE" value="<?php
+                      if(isset($_POST['COSTPRICE'])){echo trim($_POST['COSTPRICE']);}?>" placeholder="Harga Beli">
                     </div>
                     <div class="form-group">
-                      <input type="number" class="form-control form-control-user" required name="sale" value="<?php
-                      if(isset($_POST['sale'])){echo trim($_POST['sale']);} ?>" placeholder="Harga Jual">
+                      <input type="number" class="form-control form-control-user" required name="NETSALES" value="<?php
+                      if(isset($_POST['NETSALES'])){echo trim($_POST['NETSALES']);}?>" placeholder="Harga Jual">
                     </div>
-                    <button class="btn btn-primary btn-user btn-block" type="submit" name="tambah">Tambah Barang</button>
+                    <div class="form-group">
+                      <input type="number" class="form-control form-control-user" required name="STOK" value="<?php
+                      if(isset($_POST['STOK'])){echo trim($_POST['STOK']);}?>" placeholder="Stok">
+                    </div>
+                    <button class="btn btn-primary btn-user btn-block" type="submit" name="update">Tambah dan Update Barang</button>        
                   </div>
                 </div>
               </form>
 
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Detail Data</h6>
-                  <span class="pull-right">
-                  </span>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
-                      <thead>
-                        <tr>
-                          <th>No</th>
-                          <th>Kode</th>
-                          <th>Nama Barang</th>
-                          <th>Harga Beli</th>
-                          <th>Harga Jual</th>
-                          <th>Keuntungan</th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                        <tr>
-                          <th>No</th>
-                          <th>Kode</th>
-                          <th>Nama Barang</th>
-                          <th>Harga Beli</th>
-                          <th>Harga Jual</th>
-                          <th>Keuntungan</th>
-                        </tr>
-                      </tfoot>
-                      <tbody>
-                        <?php
-                        $no=1;
-                        foreach($tampil_barang as $tampil_barang_value =>$tampil_barang_final){
-
-                          ?>
+              <form action="" method="post">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Detail Data</h6>
+                    <span class="pull-right">
+                    </span>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                        <thead>
                           <tr>
-                            <td><?=$no++?></td>
-                            <td><?php  echo $tampil_barang_final['PLU']; ?></td>
-                            <td><?php  echo $tampil_barang_final['BRAND']; ?></td>
-                            <td><?php  echo $tampil_barang_final['COSTPRICE']; ?></td>
-                            <td><?php  echo $tampil_barang_final['NETSALES']; ?></td>
-                            <td><?php  echo $tampil_barang_final['PROFIT']; ?></td>
+                            <th>No</th>
+                            <th>Kode</th>
+                            <th>Nama Barang</th>
+                            <th>Harga Beli</th>
+                            <th>Harga Jual</th>
+                            <th>Keuntungan</th>
+                            <th>Stok</th>
+                            <!-- <th>Update</th> -->
                           </tr>
-                        <?php } ?>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                            <th>No</th>
+                            <th>Kode</th>
+                            <th>Nama Barang</th>
+                            <th>Harga Beli</th>
+                            <th>Harga Jual</th>
+                            <th>Keuntungan</th>
+                            <th>Stok</th>
+                            <!-- <th>Update</th> -->
+                          </tr>
+                        </tfoot>
+                        <tbody>
+                          <?php
+                          $no=1;
+                          foreach($tampil_barang as $tampil_barang_value =>$tampil_barang_final){
+
+                            ?>
+                            <tr>
+                              <td><?=$no++?></td>
+                              <td><?php  echo $tampil_barang_final['PLU']; ?></td>
+                              <td><?php  echo $tampil_barang_final['BRAND']; ?></td>
+                              <td><?php  echo $tampil_barang_final['COSTPRICE']; ?></td>
+                              <td><?php  echo $tampil_barang_final['NETSALES']; ?></td>
+                              <td><?php  echo $tampil_barang_final['PROFIT']; ?></td>
+                              <td><?php  echo $tampil_barang_final['STOK']; ?></td>
+                            </tr>
+                          <?php } ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
-            
+
             <!-- /.container-fluid -->
 
           </div>

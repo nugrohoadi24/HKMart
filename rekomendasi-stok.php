@@ -216,8 +216,9 @@ if(!isset($_SESSION['nama'])) {
                       <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                           <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Item Terjual</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">457</div>
                           <div class="h6 mb-0 font-weight-bold text-gray-800">
-                           <?php
+<!--                            <?php
                            $qtyawal=0; $total=0;
                            $databarang='dataBarang/';
                            $tampil_barang=$database->getReference($databarang)->getValue();
@@ -227,7 +228,7 @@ if(!isset($_SESSION['nama'])) {
                             }
                           }
                           echo $qtyawal;
-                          ?>
+                          ?> -->
                         </div>
                       </div>
                       <div class="col-auto">
@@ -246,13 +247,9 @@ if(!isset($_SESSION['nama'])) {
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Pendapatan</div>
                         <div class="row no-gutters align-items-center">
-                          <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                          </div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">672881</div>
                           <div class="col">
-                            <div class="progress progress-sm mr-2">
-                              <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+
                           </div>
                         </div>
                       </div>
@@ -271,7 +268,7 @@ if(!isset($_SESSION['nama'])) {
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Profit</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">258182</div>
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-comments fa-2x text-gray-300"></i>
