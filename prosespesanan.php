@@ -10,15 +10,15 @@ $idtransaksi=date('ymdhis');
 $uniq=date('Ymdhis');
 
 ?>
-<?php $no=1; $total=0; $harga=0; $uniq=$idtransaksi."00000"; $jual=0; $profit=0;
+<?php $no=1; $total=0; $harga=0; $uniq=$idtransaksi."00000"; $jual=0; $profit=0; $stok=0;
 foreach($tampil_barang as $tampil_barang_value => $tampil_barang_final){
 	if(isset($_POST[$tampil_barang_final['PLU']]) && $_POST[$tampil_barang_final['PLU']] > 0){
 		$total    = $total+$_POST[$tampil_barang_final['PLU']];
 		$peritem  = $tampil_barang_final['NETSALES']*$_POST[$tampil_barang_final['PLU']];
 		$harga    = $harga+$peritem;
-
+		$stok	  = $tampil_barang_final['STOK']-$_POST[$tampil_barang_final['PLU']];
 		$qty      = ($tampil_barang_final['QTY_TERJUAL'] + $_POST[$tampil_barang_final['PLU']]);
-		$reference='dataTransaksi/'.$idtransaksi."/".$uniq++;
+		$reference='dataTransaksi222/'.$idtransaksi."/".$uniq++;
 		$data=[
 			'IDTRANSAKSI'         =>  $idtransaksi,
 			'PLU'                 =>  $tampil_barang_final['PLU'],
@@ -39,6 +39,7 @@ foreach($tampil_barang as $tampil_barang_value => $tampil_barang_final){
 			if ($update_barang_final['PLU'] && $updateByPlu) {
 				$referenceupdate='dataBarang/'.$updateByPlu;
 				$data=[
+					'STOK'				  =>  $stok,
 					'QTY_TERJUAL'         =>  $qty
 				];
 				$updatedata=$database->getReference($referenceupdate)->update($data);

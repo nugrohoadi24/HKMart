@@ -4,6 +4,7 @@ include 'php/koneksi.php';
 
 $dataadmin='dataAdmin/';
 $tampil_admin=$database->getReference($dataadmin)->getValue();
+$tampil_rekomendasi = $database->getReference('rekomendasi/')->getValue();
 
 
 if(!isset($_SESSION['nama'])) {
@@ -308,104 +309,82 @@ if(isset($_POST['update'])){
                     <span class="pull-right">
                     </span>
                   </div>
-
                   <form class="rekomendasi" action="rekomendasi-stok.php" method="post">
                     <div class="card shadow mb-4">
                       <div class="card-body">
-                        <!-- <div class="form-group dropdown">
-                          <h6>Produk</h6>
-                          <select name="list"  class="form-control">
-                            <?php
-                            foreach ($tampil_barang as $tampil_barang_value => $tampil_barang_final) {
-                             $brand = $tampil_barang_final['BRAND'];
-                             echo '<option value="'.$brand.'">'. $brand.'</option>';
-                           }                       
-                           ?> 
-                         </select>
-                       </div> -->
- <!--                       <div class="form-group">
-                        <h6>Masukkan Minimum Support</h6>
-                        <input type="text" class="form-control form-control-user" required name="supp" value="" placeholder="Minimum Support">
+                        <button class="btn btn-primary btn-user btn-block" type="submit" name="tambah">Cek Rekomendasi</button>
                       </div>
-                      <div class="form-group">
-                        <h6>Masukkan Minimum Confident</h6>
-                        <input type="text" class="form-control form-control-user" required name="conf" value="" placeholder="Minimum Confident">
-                      </div> -->
-                      <button class="btn btn-primary btn-user btn-block" type="submit" name="tambah">Cek Rekomendasi</button>
                     </div>
+                  </form>
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Minimum Support = <?php echo $tampil_rekomendasi['minSupp']; ?></h6><br>
+                    <h6 class="m-0 font-weight-bold text-primary">Minimum Confident = <?php echo $tampil_rekomendasi['minConf']; ?></h6>
                   </div>
-                </form>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th>Nama Barang A</th>
+                            <th>Nama Barang B</th>
+                            <th>Dibeli Bersamaan</th>
+                            <th>Persentase Confident</th>
+                            <th>Profit</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          if(isset($_POST['tambah'])){
+                            include 'apriori-greedy.php';
+                            $tampil_transaksi = $database->getReference('dataTransaksi/')->getValue();
+                            $tampil_rekomendasi = $database->getReference('rekomendasi/')->getValue();
 
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
-                      <thead>
-                        <tr>
-                          <th>Nama Barang A</th>
-                          <th>Nama Barang B</th>
-                          <th>Dibeli Bersamaan</th>
-                          <th>Persentase Confident</th>
-                          <th>Profit</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        if(isset($_POST['tambah'])){
-                          include 'apriori-greedy.php';
-                          $tampil_transaksi = $database->getReference('dataTransaksi/')->getValue();
-                          $tampil_rekomendasi = $database->getReference('rekomendasi/')->getValue();
+                            $minSup = $tampil_rekomendasi['minSupp'];
+                            $conf = $tampil_rekomendasi['minConf'];
 
-                          $minSup = $tampil_rekomendasi['minSupp'];
-                          $conf = $tampil_rekomendasi['minConf'];
-                          
-                          $results = findAllPropbs($tampil_transaksi,$minSup,$conf);
-                          foreach ($results as $k =>$result) {
-                            foreach ($result as $key => $value){
-                              ?>
-                              <tr>
-                                <td><?php echo $k; ?></td>
-                                <td><?php echo $key; ?></td>
-                                <td><?php echo $value['jumlah']; ?></td>
-                                <td><?php echo round($value['procentage'] *100); ?></td>
-                                <td><?php echo $value['profit']; ?></td>
-                              </tr>
-                              <?php
+                            $results = findAllPropbs($tampil_transaksi,$minSup,$conf);
+                            foreach ($results as $k =>$result) {
+                              foreach ($result as $key => $value){
+                                ?>
+                                <tr>
+                                  <td><?php echo $k; ?></td>
+                                  <td><?php echo $key; ?></td>
+                                  <td><?php echo $value['jumlah']; ?></td>
+                                  <td><?php echo round($value['procentage'] *100); ?></td>
+                                  <td><?php echo $value['profit']; ?></td>
+                                </tr>
+                                <?php
+                              }
                             }
                           }
-                        }
 
-                        ?>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <th>Nama Barang A</th>
-                          <th>Nama Barang B</th>
-                          <th>Dibeli Bersamaan</th>
-                          <th>Persentase Confident</th>
-                          <th>Profit</th>
-                        </tr>
-                      </tfoot>
-                    </table>
-                  </div>
-                </div>                
+                          ?>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <th>Nama Barang A</th>
+                            <th>Nama Barang B</th>
+                            <th>Dibeli Bersamaan</th>
+                            <th>Persentase Confident</th>
+                            <th>Profit</th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>                
+                </div>
               </div>
             </div>
-          </div>
-          <!-- End of Main Content -->
+            <!-- End of Main Content -->
 
-          <div class="container-fluid">
-            <div class="card shadow mb-4">
-              <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Set Ulang Minimum Support dan Minimum Confident</h6>
-                <span class="pull-right">
-                </span>
-                <hr>
-                <div class="card-body">
-                  <p>
-                    <button class="btn btn-primary btn-user btn-block" type="button" data-toggle="collapse" data-target="#qr" aria-expanded="false" aria-controls="collapseExample">
-                      Set Ulang Support dan Confident
-                    </button>
-                  </p>
+            <div class="container-fluid">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Set Ulang Minimum Support dan Minimum Confident</h6>
+                  <span class="pull-right">
+                  </span>
+                  <hr>
+
                   <div class="user" class="collapse" id="qr">
                     <form action="" method="post">
                       <div class="form-group">
@@ -422,68 +401,71 @@ if(isset($_POST['update'])){
                     </div>
                   </form>
                 </div>
-              </div>
-            </div>
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-              <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                  <span>Copyright &copy; Nugroho Adi Pratomo 2020</span>
-                </div>
-              </div>
-            </footer>
-            <!-- End of Footer -->
-
-          </div>
-          <!-- End of Content Wrapper -->
-
-        </div>
-        <!-- End of Page Wrapper -->
-
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-          <i class="fas fa-angle-up"></i>
-        </a>
-
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ingin Keluar dari Akun ini?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <div class="modal-body">Silahan Pilih Logout jika ingin keluar dari Akun ini.</div>
-              <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="logout.php">Logout</a>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright &copy; Nugroho Adi Pratomo 2020</span>
+            </div>
+          </div>
+        </footer>
+        <!-- End of Footer -->
 
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+      </div>
+      <!-- End of Content Wrapper -->
 
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin-2.min.js"></script>
+    </div>
+    <!-- End of Page Wrapper -->
 
-        <!-- Page level plugins -->
-        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-        <script src="vendor/chart.js/Chart.min.js"></script>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
-        <!-- Page level custom scripts -->
-        <script src="js/demo/datatables-demo.js"></script>
-        <script src="js/demo/chart-area-demo.js"></script>
-        <script src="js/demo/chart-pie-demo.js"></script>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ingin Keluar dari Akun ini?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Silahan Pilih Logout jika ingin keluar dari Akun ini.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="logout.php">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      </body>
-      </html>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+
+  </body>
+  </html>
