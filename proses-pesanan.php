@@ -6,13 +6,13 @@ $idtransaksi=date('ymdhis');
     // $input= new PhpFirebase($ath);
 $uniq=date('Ymdhis');
 
-    // $dataadmin='dataAdmin/';
-    // $tampil_admin=$database->getReference($dataadmin)->getValue();
-    // if(!isset($_SESSION['nama'])) {
-    //    header('location:login.php'); 
-    // } else { 
-    //    $nama = $_SESSION['nama']; 
-    // }
+$dataadmin='dataAdmin/';
+$tampil_admin=$database->getReference($dataadmin)->getValue();
+if(!isset($_SESSION['nama'])) {
+ header('location:login.php'); 
+} else { 
+ $nama = $_SESSION['nama']; 
+}
 ?>
 
 <!DOCTYPE html>

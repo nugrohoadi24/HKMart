@@ -1,15 +1,49 @@
 <?php
+function findAllPropbs($data,$minsupport,$minConiden){
+	$lists = listBarang($data);
+	$allProbs = [];
+	foreach($lists as $list){
+		$probability = hitungProbabilitas($data,$list,$minsupport,$minConiden);
+		if(!empty($probability)){
+			//$allProbs = array_merge($allProbs,$probability);
+			$allProbs[$list] = $probability;
+		}
+	}
+	return $allProbs;
+}
+
+//Ambil data barang dari total transaksi
+function ambilDataBrand($data){
+	$results = array();
+	foreach($data as $key=>$value){
+		$brand = [];
+		foreach($value as $k=>$v){
+			$brand[] = $v['BRAND'];
+		}
+		$results[] = $brand;
+
+	}
+	return $results;
+}
+
+//List Barang Uniq
+function listBarang($data){
+	$a= [];
+	foreach(ambilDataBrand($data) as $result){
+		foreach($result as $r){
+			if(!array_key_exists($r,$a)){
+				$a[] = $r;
+			}
+		}
+	}
+	$a = array_unique($a);
+	return $a;
+}
 
 function hitungProbabilitas($data,$keywords,$minsupport,$minConiden){
-
-	//$file = fopen($filepath,'r');
-	//$data = json_decode(fread($file,filesize('nyoba.json')),true);
-
-//menentukan keyword
+//menentukan berdasarkan keyword
 	$result = [];
 	$profit = [];
-
-//deklarasi min support
 
 //Looping dalam data json untuk mencari berapa transaksi yg berisi BRAND keyword
 	$transaction = [];
@@ -39,9 +73,8 @@ function hitungProbabilitas($data,$keywords,$minsupport,$minConiden){
 			}
 		}
 
-
  //tentukan minimal pertemuan item dgn keywords dan looping untuk menampilkan data yg sesuai
-	///$confiden = 0.5;
+	///Confident;
 		foreach($match as $k=>$m){
 			if($m['jml'] >= $minConiden){
 				$procentage = $m['jml'] / count($transaction);
