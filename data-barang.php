@@ -69,7 +69,7 @@ if(isset($_POST["tambah"])){
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Husnul Khatimah - Data Siswa</title>
+  <title>Husnul Khatimah - Data Barang</title>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
