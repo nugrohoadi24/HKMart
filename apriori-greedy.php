@@ -1,9 +1,9 @@
 <?php
-function findAllPropbs($data,$minsupport,$minConiden){
+function findAllPropbs($data,$minsupport,$minConfident){
 	$lists = listBarang($data);
 	$allProbs = [];
 	foreach($lists as $list){
-		$probability = hitungProbabilitas($data,$list,$minsupport,$minConiden);
+		$probability = hitungProbabilitas($data,$list,$minsupport,$minConfident);
 		if(!empty($probability)){
 			//$allProbs = array_merge($allProbs,$probability);
 			$allProbs[$list] = $probability;
@@ -40,8 +40,7 @@ function listBarang($data){
 	return $a;
 }
 
-function hitungProbabilitas($data,$keywords,$minsupport,$minConiden){
-//menentukan berdasarkan keyword
+function hitungProbabilitas($data,$keywords,$minsupport,$minConfident){
 	$result = [];
 	$profit = [];
 
@@ -76,9 +75,9 @@ function hitungProbabilitas($data,$keywords,$minsupport,$minConiden){
  //tentukan minimal pertemuan item dgn keywords dan looping untuk menampilkan data yg sesuai
 	///Confident;
 		foreach($match as $k=>$m){
-			if($m['jml'] >= $minConiden){
+			if($m['jml'] >= $minConfident){
 				$procentage = $m['jml'] / count($transaction);
-				if($procentage >= $minConiden){
+				if($procentage >= $minConfident){
 					$result[$k] = [
 						'jumlah'=>$m['jml'],
 						'procentage'=>$procentage,

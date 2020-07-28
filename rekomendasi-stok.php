@@ -191,7 +191,7 @@ if(isset($_POST['update'])){
               <!-- Page Heading -->
               <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Rekap Penjualan</h1>
-                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                <!--                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
               </div>
 
               <!-- Content Row -->
@@ -234,7 +234,7 @@ if(isset($_POST['update'])){
                       <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                           <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Item Terjual</div>
-                          <div class="h5 mb-0 font-weight-bold text-gray-800">457</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">1806</div>
                           <div class="h6 mb-0 font-weight-bold text-gray-800">
 <!--                            <?php
                            $qtyawal=0; $total=0;
@@ -265,7 +265,7 @@ if(isset($_POST['update'])){
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Pendapatan</div>
                         <div class="row no-gutters align-items-center">
-                          <div class="h5 mb-0 font-weight-bold text-gray-800">672881</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">2921286</div>
                           <div class="col">
 
                           </div>
@@ -286,7 +286,7 @@ if(isset($_POST['update'])){
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Profit</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">258182</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">543291</div>
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-comments fa-2x text-gray-300"></i>

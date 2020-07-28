@@ -1,49 +1,49 @@
 <?php
-    include 'php/koneksi.php';
+include 'php/koneksi.php';
     // error_reporting(0);
-    $dataadmin='dataAdmin/';
-    $tampil_admin=$database->getReference($dataadmin)->getValue();
+$dataadmin='dataAdmin/';
+$tampil_admin=$database->getReference($dataadmin)->getValue();
 
-                if(isset($_POST["daftar"])){
-                
-                $nama_depan=$_POST['namaDepan'];
-                $nama_belakang=$_POST['namaBelakang'];
-                $full_name=$nama_depan." ".$nama_belakang;
-                
-                foreach($tampil_admin as $tampil_data => $data){
-                  if($_POST['username']==$data['ID']){
-                    echo "<script>alert('Username telah digunakan!')</script>";
-                    $break=1;
-                    break;
-                  }
-                }
-                if(isset($break)){
-                }else{
-                    if(!empty($full_name) && !empty($_POST['email']) && !empty($_POST['pass'])) {
-                      if($_POST['pass'] != $_POST['repeatPass']){
-                        echo "<script>alert('Password tidak sama!')</script>";
-                      }else{
-                      $reference='dataAdmin/';
-                              $data=[
-                                  'NAMA'                  =>  $full_name,
-                                  'EMAIL'                 =>  $_POST['email'],
-                                  'ID'                    =>  $_POST['username'],
-                                  'PASSWORD'              =>  $_POST['pass']
+if(isset($_POST["daftar"])){
+  
+  $nama_depan=$_POST['namaDepan'];
+  $nama_belakang=$_POST['namaBelakang'];
+  $full_name=$nama_depan." ".$nama_belakang;
+  
+  foreach($tampil_admin as $tampil_data => $data){
+    if($_POST['username']==$data['ID']){
+      echo "<script>alert('Username telah digunakan!')</script>";
+      $break=1;
+      break;
+    }
+  }
+  if(isset($break)){
+  }else{
+    if(!empty($full_name) && !empty($_POST['email']) && !empty($_POST['pass'])) {
+      if($_POST['pass'] != $_POST['repeatPass']){
+        echo "<script>alert('Password tidak sama!')</script>";
+      }else{
+        $reference='dataAdmin/';
+        $data=[
+          'NAMA'                  =>  $full_name,
+          'EMAIL'                 =>  $_POST['email'],
+          'ID'                    =>  $_POST['username'],
+          'PASSWORD'              =>  $_POST['pass']
 
-                              ];
+        ];
 
                               // $pushdata=$database->getReference($reference)->push($data);
-                              if ($database->getReference($reference)->push($data)) {
-                                $_SESSION['id']=$_POST['username'];
-                                header('location: login.php');
-                              }
-                            }
-                          }
-                      }        
-                    }
+        if ($database->getReference($reference)->push($data)) {
+          $_SESSION['id']=$_POST['username'];
+          header('location: login.php');
+        }
+      }
+    }
+  }        
+}
 
 
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,7 +74,7 @@
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-        <img class="col-lg-5 d-none d-lg-block bg-register" style="width: 25rem;" src="img/FotoHK_2.jpg" alt="">
+          <img class="col-lg-5 d-none d-lg-block bg-register" style="width: 25rem;" src="img/FotoHK_2.jpg" alt="">
           <div class="col-lg-7">
             <div class="p-5">
               <div class="text-center">
@@ -109,38 +109,38 @@
 
                 <hr>
                 <div class="text-center">
-                      <h6 class="h6 text-gray-900 mb-6"><i>“Bekerjalah kamu, maka Allah dan Rasul-Nya serta orang-orang mukmin 
-                        akan melihat pekerjaanmu itu, dan kamu akan dikembalikan kepada (Allah) Yang Mengetahui akan yang ghaib 
-                        dan yang nyata, lalu diberitakan-Nya kepada kamu apa yang telah kamu kerjakan”</i>
-                      (QS. At Taubah 105)</h6>
-                </div>
-                <hr>
-                <div class="text-center">
-                      <h6 class="h6 text-gray-900 mb-6">“Orang yang berkata jujur akan mendapatkan tiga hal: Kepercayaan, Cinta dan Rasa Hormat”
-                      (Ali Bin Abi Thalib)</h6>
-                </div>
-              </form>
+                  <h6 class="h6 text-gray-900 mb-6"><i>“Bekerjalah kamu, maka Allah dan Rasul-Nya serta orang-orang mukmin 
+                    akan melihat pekerjaanmu itu, dan kamu akan dikembalikan kepada (Allah) Yang Mengetahui akan yang ghaib 
+                  dan yang nyata, lalu diberitakan-Nya kepada kamu apa yang telah kamu kerjakan”</i>
+                (QS. At Taubah 105)</h6>
+              </div>
               <hr>
               <div class="text-center">
-                <a class="small" href="login.php">Sudah punya akun? Login!</a>
+                <h6 class="h6 text-gray-900 mb-6">“Orang yang berkata jujur akan mendapatkan tiga hal: Kepercayaan, Cinta dan Rasa Hormat”
+                (Ali Bin Abi Thalib)</h6>
               </div>
+            </form>
+            <hr>
+            <div class="text-center">
+              <a class="small" href="login.php">Sudah punya akun? Login!</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</div>
 
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
 
 </body>
 

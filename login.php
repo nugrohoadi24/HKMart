@@ -92,9 +92,9 @@
                     </div>
                   </form>
                   <hr>
-<!--                   <div class="text-center">
+                  <div class="text-center">
                     <a class="small" href="register.php">Buat Akun!</a>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>

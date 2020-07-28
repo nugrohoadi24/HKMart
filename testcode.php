@@ -1,11 +1,30 @@
 <?php
 include 'php/koneksi.php';
-$dataadmin='dataAdmin/';
-$tampil_admin=$database->getReference($dataadmin)->getValue();
-if(!isset($_SESSION['nama'])) {
- header('location:login.php'); 
-} else { 
- $nama = $_SESSION['nama']; 
+
+$testCode='testCode/';
+$tampil_barang=$database->getReference($testCode)->getValue();
+
+  // error_reporting(0);
+
+if(isset($_POST["tambah"])){
+  $num=0;
+  $total=0;
+  $harga=0;
+  $qty=0;
+  $harga = $_POST['HARGA'];
+  $qty = $_POST['QTY'];
+
+  $total = $total + $harga * $qty;
+
+  $reference='testCode/';
+  $data=[
+    'NAMA_BRG'                 =>  $_POST['NAMABRG'],
+    'KATEGORI'                 =>  $_POST['KTG'],
+    'HARGA'                    =>  $_POST['HARGA']
+  ];
+
+  $database->getReference($reference)->push($data);  
+  header('location: testcode.php');      
 }
 ?>
 
@@ -20,19 +39,23 @@ if(!isset($_SESSION['nama'])) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Husnul Khatimah - QR Generate</title>
+  <title>Husnul Khatimah - Data Barang</title>
 
-  <!-- Custom fonts for this template-->
+  <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
+  <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
-  <!-- Original -->
+
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -166,7 +189,6 @@ if(!isset($_SESSION['nama'])) {
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$_SESSION['nama']?></span>
                     <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                   </a>
-
                   <!-- Dropdown - User Information -->
                   <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -185,50 +207,89 @@ if(!isset($_SESSION['nama'])) {
             <div class="container-fluid">
 
               <!-- Page Heading -->
-              <h1 class="h3 mb-1 text-gray-800">Generate QR Code</h1>
-              <p class="mb-4">Halaman untuk melakukan Generate QR Code</p>
-
-              <!-- Content Row -->
-              <div class="row">
-
-                <!-- First Column -->
-                <div class="col-lg-4">
-
-                  <!-- Custom Text Color Utilities -->
-                  <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                      <h6 class="m-0 font-weight-bold text-primary">Panduan</h6>
+              <h1 class="h3 mb-2 text-gray-800">Test Code</h1>
+              <!-- DataTales Example -->
+              <form class="user" action="testcode.php" method="post">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Test Code</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <h6>Nama Barang</h6>
+                      <input type="text" class="form-control form-control-user" required name="NAMABRG" value="<?php
+                      if(isset($_POST['NAMABRG']))?>" placeholder="Nama Barang">
                     </div>
-                    <div class="card-body">
-                      <div class="text-center">
-                        <h6 class="h7 mb-6" style="color: #999; font-style: italic;">
-                          <i>“Generate QR Code untuk mendapatkan kode Uniq, yang nanti dapat digunakan sebagai bentuk pembayaran menggunakan QR Code”</i>
-                          <hr>
-                          Simpan dengan baik dan jangan berikan kepada siapapun!
-                        </h6>                    
+                    <div class="form-group">
+                      <h6>Kategori</h6>
+                      <div class="dropdown">
+                        <select name="KTG" value="<?php if(isset($_POST['KTG']))?>">
+                          <option type="text" value="Makanan">Makanan</option> 
+                          <option type="text" value="Kebersihan">Alat Kebersihan</option>
+                          <option type="text" value="Sabun">Sabun</option>
+                        </select>
                       </div>
                     </div>
+                    <div class="form-group">
+                      <h6>Harga Satuan</h6>
+                      <input type="number" class="form-control form-control-user" required name="HARGA" value="<?php if(isset($_POST['HARGA']))?>" placeholder="Harga">
+                    </div>
+                    <div class="form-group">
+                      <h6>Banyaknya</h6>
+                      <input type="number" class="form-control form-control-user" required name="QTY" value="<?php if(isset($_POST['QTY']))?>" placeholder="Kuantitas">
+                    </div>
+                    <button class="btn btn-primary btn-user btn-block" type="submit" name="tambah">Simpan</button>        
                   </div>
                 </div>
+              </form>
 
-                <!-- Second Column -->
-                <div class="col-lg-4">
+              <form action="" method="post">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Detail Data</h6>
+                    <span class="pull-right">
+                    </span>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th>No</th>
+                            <th>Nama Barang</th>
+                            <th>Kategori Barang</th>
+                            <th>Jumlah Bayar</th>
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                            <th>No</th>
+                            <th>Nama Barang</th>
+                            <th>Kategori Barang</th>
+                            <th>Jumlah Bayar</th>
+                          </tr>
+                        </tfoot>
+                        <tbody>
+                          <?php
+                          $no=1;
+                          foreach($tampil_barang as $tampil_barang_value =>$tampil_barang_final){
 
-                  <!-- Custom Text Color Utilities -->
-                  <div class="card shadow mb-4" type="hidden">
-                    <div class="card-header py-3">
-                      <h6 class="m-0 font-weight-bold text-primary">Generate QR</h6>
-                    </div>
-                    <div class="card-body"> 
-                      <input id="text" type="text" value="" placeholder="Silahkan Input ID Siswa"/>                  
-                    </div>
-                    <div class="card-body">
-                      <div id="qrcode" class="qrbox text-center"></div>
+                            ?>
+                            <tr>
+                              <td><?=$no++?></td>
+                              <td><?php  echo $tampil_barang_final['NAMA_BRG']; ?></td>
+                              <td><?php  echo $tampil_barang_final['KATEGORI']; ?></td>
+                              <td><?php  echo $tampil_barang_final['HARGA']; ?></td>
+                            </tr>
+                          <?php } ?>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
+
             <!-- /.container-fluid -->
 
           </div>
@@ -282,37 +343,21 @@ if(!isset($_SESSION['nama'])) {
       <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
       <!-- Custom scripts for all pages-->
-      <script src="js/sb-admin-2.min.js"></script> 
-      <link rel="stylesheet" type="text/css" href="./qr/qr.css">
-      <div class="col-md-12">
-        <div class="text-center">
+      <script src="js/sb-admin-2.min.js"></script>
 
-        </div>
-      </div>
+      <!-- Page level plugins -->
+      <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+      <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+      <!-- Page level custom scripts -->
+      <script src="js/demo/datatables-demo.js"></script>
+      <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+      <script>
+        $(document).ready( function () {
+          $('#myTable').DataTable();
+        } );
+      </script>
+
     </body>
-
-    <!-- QR Code -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-    <script type="text/javascript"> 
-      var qrcode = new QRCode("qrcode");
-
-      function makeCode () {    
-        var elText = document.getElementById("text");
-
-        qrcode.makeCode(elText.value);
-      }
-
-      makeCode();
-
-      $("#text").
-      on("blur", function () {
-        makeCode();
-      }).
-      on("keydown", function (e) {
-        if (e.keyCode == 13) {
-          makeCode();
-        }
-      });
-    </script>
     </html>

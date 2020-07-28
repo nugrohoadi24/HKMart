@@ -105,6 +105,7 @@
                         <?php } ?>
                   </tbody>
                 </table>
+                <a href="data-transaksi.php"><button class="btn btn-primary btn-user btn-block" type="submit" name="tambah">Kembali</button></a>
               </div>
             </div>
           </div>

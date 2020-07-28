@@ -254,78 +254,104 @@
                       </tbody>
                     </table>
                   </div>
+                  <br>
+
+
+                  <div class="form-row row">
+                    <div class="col-lg-6 col-xs-12 col-md-6">
+                      <form action="transaksi-user.php">
+                        <p>
+                          <button class="btn btn-primary btn-block" type="submit" data-target="#user" aria-expanded="false" 
+                          aria-controls="collapseExample">
+                          Transaksi User
+                        </button>
+                      </p>
+                    </form>
+                  </div>
+
+                  <div class="col-lg-6 col-xs-12 col-md-6">
+                    <form action="transaksi-kategori.php">
+                      <p>
+                        <button class="btn btn-primary btn-block" type="submit" data-target="#kategori" aria-expanded="false" 
+                        aria-controls="collapseExample">
+                        Transaksi Kategori
+                      </button>
+                    </p>
+                  </form>
                 </div>
               </div>
 
             </div>
-            <!-- /.container-fluid -->
-
-          </div>
-          <!-- End of Main Content -->
-
-          <!-- Footer -->
-          <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-              <div class="copyright text-center my-auto">
-                <span>Copyright &copy; Nugroho Adi Pratomo 2020</span>
-              </div>
-            </div>
-          </footer>
-          <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-      </div>
-      <!-- End of Page Wrapper -->
-
-      <!-- Scroll to Top Button-->
-      <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-      </a>
-
-      <!-- Logout Modal-->
-      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Ingin Keluar dari Akun ini?</h5>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">Silahan Pilih Logout jika ingin keluar dari Akun ini.</div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-              <a class="btn btn-primary" href="logout.php">Logout</a>
-            </div>
           </div>
         </div>
+        <!-- /.container-fluid -->
+
       </div>
+      <!-- End of Main Content -->
 
-      <!-- Bootstrap core JavaScript-->
-      <script src="vendor/jquery/jquery.min.js"></script>
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Nugroho Adi Pratomo 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
 
-      <!-- Core plugin JavaScript-->
-      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    </div>
+    <!-- End of Content Wrapper -->
 
-      <!-- Custom scripts for all pages-->
-      <script src="js/sb-admin-2.min.js"></script>
+  </div>
+  <!-- End of Page Wrapper -->
 
-      <!-- Page level plugins -->
-      <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-      <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
 
-      <!-- Page level custom scripts -->
-      <script src="js/demo/datatables-demo.js"></script>
-      <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ingin Keluar dari Akun ini?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Silahan Pilih Logout jika ingin keluar dari Akun ini.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="logout.php">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      <script>
-        $(document).ready( function () {
-          $('#myTable').DataTable();
-        } );
-      </script>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    </body>
-    </html>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="js/demo/datatables-demo.js"></script>
+  <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready( function () {
+      $('#myTable').DataTable();
+    } );
+  </script>
+
+</body>
+</html>

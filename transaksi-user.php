@@ -1,18 +1,27 @@
-<?php
-include 'php/koneksi.php';
-$dataadmin='dataAdmin/';
-$tampil_admin=$database->getReference($dataadmin)->getValue();
-if(!isset($_SESSION['nama'])) {
- header('location:login.php'); 
-} else { 
- $nama = $_SESSION['nama']; 
-}
-?>
+  <?php
+  include 'php/koneksi.php';
 
-<!DOCTYPE html>
-<html lang="en">
+  $datatransaksi='dataBarang/';
+  $tampil_transaksi=$database->getReference($datatransaksi)->getValue();
 
-<head>
+  $dataSiswa='dataSiswa/';
+  $tampil_siswa=$database->getReference($dataSiswa)->getValue();
+
+  $dataQR='dataTransaksiQR/';
+  $tampilQR=$database->getReference($dataQR)->getValue();
+
+  if(!isset($_SESSION['nama'])) {
+   header('location:login.php'); 
+ } else { 
+   $nama = $_SESSION['nama']; 
+ }
+ ?>
+
+
+ <!DOCTYPE html>
+ <html lang="en">
+
+ <head>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,19 +29,23 @@ if(!isset($_SESSION['nama'])) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Husnul Khatimah - QR Generate</title>
+  <title>Husnul Khatimah - Data Transaksi</title>
 
-  <!-- Custom fonts for this template-->
+  <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
+  <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
-  <!-- Original -->
+
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -166,7 +179,6 @@ if(!isset($_SESSION['nama'])) {
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$_SESSION['nama']?></span>
                     <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                   </a>
-
                   <!-- Dropdown - User Information -->
                   <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -175,9 +187,7 @@ if(!isset($_SESSION['nama'])) {
                     </a>
                   </div>
                 </li>
-
               </ul>
-
             </nav>
             <!-- End of Topbar -->
 
@@ -185,48 +195,111 @@ if(!isset($_SESSION['nama'])) {
             <div class="container-fluid">
 
               <!-- Page Heading -->
-              <h1 class="h3 mb-1 text-gray-800">Generate QR Code</h1>
-              <p class="mb-4">Halaman untuk melakukan Generate QR Code</p>
+              <h1 class="h3 mb-2 text-gray-800">Data Transaksi Per User</h1>
+              <p class="mb-4">Data Transaksi yang tercatat secara keseluruhan di Husnul Khatimah Mart</p>
 
-              <!-- Content Row -->
-              <div class="row">
+              <!-- DataTales Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Detail Data</h6>
+                </div>
+                <div class="card-body">
+                  <?php if (!isset($_GET['id'])): ?>
 
-                <!-- First Column -->
-                <div class="col-lg-4">
+                    <?php
+                    $no=1;
+                    foreach($tampil_siswa as $tampil_siswa_value =>$tampil_siswa_final){
 
-                  <!-- Custom Text Color Utilities -->
-                  <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                      <h6 class="m-0 font-weight-bold text-primary">Panduan</h6>
-                    </div>
-                    <div class="card-body">
-                      <div class="text-center">
-                        <h6 class="h7 mb-6" style="color: #999; font-style: italic;">
-                          <i>“Generate QR Code untuk mendapatkan kode Uniq, yang nanti dapat digunakan sebagai bentuk pembayaran menggunakan QR Code”</i>
-                          <hr>
-                          Simpan dengan baik dan jangan berikan kepada siapapun!
-                        </h6>                    
-                      </div>
-                    </div>
-                  </div>
+                      ?>
+                      <a href="transaksi-user.php?id=<?php echo $tampil_siswa_final['ID']; ?>" >
+                        <div class="alert alert-primary">
+                          <?php echo $tampil_siswa_final['NAMA']; ?>
+                        </div>
+                      </a>
+                      <?php
+                    } 
+                  else: 
+                    foreach($tampil_siswa as $tampil_siswa_value =>$tampil_siswa_final){
+                      if ($tampil_siswa_final['ID']==$_GET['id']) { ?>
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                            <tr>
+                              <td>Nama</td>
+                              <td>
+                                <?php echo $tampil_siswa_final['NAMA']; ?>  
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Username</td>
+                              <td>
+                                <?php echo $tampil_siswa_final['ID']; ?>  
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Alamat</td>
+                              <td>
+                                <?php echo $tampil_siswa_final['ALAMAT']; ?>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                          </table>
+                          <br>
+                        </div>
+                        <div class="table-responsive">
+
+                          <table class="table table-hover table-striped">
+                            <thead>
+                              <th>No</th>
+                              <th>Tanggal Transaksi</th>
+                              <th>Nama Barang</th>
+                              <th>Harga</th>
+                              <th>Quantity</th>
+                              <th>Total Harga</th>
+                            </thead>
+                            <tfoot>
+                              <th>No</th>
+                              <th>Tanggal Transaksi</th>
+                              <th>Nama Barang</th>
+                              <th>Harga</th>
+                              <th>Quantity</th>
+                              <th>Total Harga</th>
+                            </tfoot>
+                            <tbody>
+                              <?php
+                              foreach($tampil_siswa as $tampil_siswa_value =>$tampil_siswa_final){
+                              }
+                              $no=1;
+                              foreach($tampilQR as $tampil_QR_value =>$tampil_QR_final){
+                                foreach($tampil_QR_final as $a =>$b){
+                                  foreach($b as $c =>$tampil_spesifik){
+                                    if (isset($tampil_spesifik['ID']) and $tampil_spesifik['ID']==$_GET['id']) { 
+                                      ?>
+                                      <tr>
+                                        <td width="30px" class="text-center"><?=$no++?></td>
+                                        <td><?php  echo substr($tampil_spesifik['IDTRANSAKSI'],0,6); ?></td>
+                                        <td><?php  echo $tampil_spesifik['BRAND']; ?></td>
+                                        <td><?php  echo $tampil_spesifik['NETSALES']; ?></td>
+                                        <td><?php  echo $tampil_spesifik['QTY_TERJUAL']; ?></td>
+                                        <td><?php  echo $tampil_spesifik['TOTALITEM']; ?></td>
+                                      </tr>
+                                      <?php 
+                                    }
+                                  } 
+                                } 
+                              } ?>
+                            </tbody>
+                          </table>
+                        </div>
+                        <?php   
+                      }
+                    }
+                    ?>
+                  <?php endif ?>
                 </div>
 
-                <!-- Second Column -->
-                <div class="col-lg-4">
-
-                  <!-- Custom Text Color Utilities -->
-                  <div class="card shadow mb-4" type="hidden">
-                    <div class="card-header py-3">
-                      <h6 class="m-0 font-weight-bold text-primary">Generate QR</h6>
-                    </div>
-                    <div class="card-body"> 
-                      <input id="text" type="text" value="" placeholder="Silahkan Input ID Siswa"/>                  
-                    </div>
-                    <div class="card-body">
-                      <div id="qrcode" class="qrbox text-center"></div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             <!-- /.container-fluid -->
@@ -282,37 +355,21 @@ if(!isset($_SESSION['nama'])) {
       <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
       <!-- Custom scripts for all pages-->
-      <script src="js/sb-admin-2.min.js"></script> 
-      <link rel="stylesheet" type="text/css" href="./qr/qr.css">
-      <div class="col-md-12">
-        <div class="text-center">
+      <script src="js/sb-admin-2.min.js"></script>
 
-        </div>
-      </div>
+      <!-- Page level plugins -->
+      <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+      <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+      <!-- Page level custom scripts -->
+      <script src="js/demo/datatables-demo.js"></script>
+      <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+      <script>
+        $(document).ready( function () {
+          $('#myTable').DataTable();
+        } );
+      </script>
+
     </body>
-
-    <!-- QR Code -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-    <script type="text/javascript"> 
-      var qrcode = new QRCode("qrcode");
-
-      function makeCode () {    
-        var elText = document.getElementById("text");
-
-        qrcode.makeCode(elText.value);
-      }
-
-      makeCode();
-
-      $("#text").
-      on("blur", function () {
-        makeCode();
-      }).
-      on("keydown", function (e) {
-        if (e.keyCode == 13) {
-          makeCode();
-        }
-      });
-    </script>
     </html>
