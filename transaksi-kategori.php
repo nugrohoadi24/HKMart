@@ -4,11 +4,8 @@
   $datatransaksi='dataBarang/';
   $tampil_transaksi=$database->getReference($datatransaksi)->getValue();
 
-  $dataSiswa='dataSiswa/';
-  $tampil_siswa=$database->getReference($dataSiswa)->getValue();
-
-  $dataQR='dataTransaksiQR/';
-  $tampilQR=$database->getReference($dataQR)->getValue();
+  $datakategori='dataKategori/';
+  $tampil_kategori=$database->getReference($datakategori)->getValue();
 
   if(!isset($_SESSION['nama'])) {
    header('location:login.php'); 
@@ -195,7 +192,7 @@
             <div class="container-fluid">
 
               <!-- Page Heading -->
-              <h1 class="h3 mb-2 text-gray-800">Data Transaksi Per User</h1>
+              <h1 class="h3 mb-2 text-gray-800">Data Transaksi Kategori</h1>
               <p class="mb-4">Data Transaksi yang tercatat secara keseluruhan di Husnul Khatimah Mart</p>
 
               <!-- DataTales Example -->
@@ -205,85 +202,74 @@
                 </div>
                 <div class="card-body">
                   <?php if (!isset($_GET['kategori'])): ?>
-
                     <?php
                     $no=1;
-                    foreach($tampil_transaksi as $tampil_transaksi_value =>$tampil_transaksi_final){
+                    foreach($tampil_kategori as $tampil_kategori_value =>$tampil_kategori_final){
 
                       ?>
-                      <a href="transaksi-kategori.php?id=<?php echo $tampil_transaksi_final['KATEGORI']; ?>" >
+                      <a href="transaksi-kategori.php?kategori=<?php echo $tampil_kategori_final['KATEGORI']; ?>" >
                         <div class="alert alert-primary">
-                          <?php echo $tampil_transaksi_final['KATEGORI']; ?>
+                          <?php echo $tampil_kategori_final['KATEGORI']; ?>
                         </div>
                       </a>
                       <?php
                     } 
                   else: 
                     foreach($tampil_transaksi as $tampil_transaksi_value =>$tampil_transaksi_final){
-                      if ($tampil_transaksi_final['KATEGORI']==$_GET['kategori']) { ?>
-                        <div class="table-responsive">
-                          <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
-                            <tr>
-                              <td>Nama</td>
-                              <td>
-                                <?php echo $tampil_siswa_final['KATEGORI']; ?>  
-                              </td>
-                            </tr>
-                            <tr>
-                              <td></td>
-                              <td></td>
-                            </tr>
-                          </table>
-                          <br>
-                        </div>
-                        <div class="table-responsive">
-
-                          <table class="table table-hover table-striped">
-                            <thead>
-                              <th>No</th>
-                              <th>Tanggal Transaksi</th>
-                              <th>Nama Barang</th>
-                              <th>Harga</th>
-                              <th>Quantity</th>
-                              <th>Total Harga</th>
-                            </thead>
-                            <tfoot>
-                              <th>No</th>
-                              <th>Tanggal Transaksi</th>
-                              <th>Nama Barang</th>
-                              <th>Harga</th>
-                              <th>Quantity</th>
-                              <th>Total Harga</th>
-                            </tfoot>
-                            <tbody>
-                              <?php
-                              foreach($tampil_siswa as $tampil_siswa_value =>$tampil_siswa_final){
-                              }
-                              $no=1;
-                              foreach($tampilQR as $tampil_QR_value =>$tampil_QR_final){
-                                foreach($tampil_QR_final as $a =>$b){
-                                  foreach($b as $c =>$tampil_spesifik){
-                                    if (isset($tampil_spesifik['ID']) and $tampil_spesifik['ID']==$_GET['id']) { 
-                                      ?>
-                                      <tr>
-                                        <td width="30px" class="text-center"><?=$no++?></td>
-                                        <td><?php  echo substr($tampil_spesifik['IDTRANSAKSI'],0,6); ?></td>
-                                        <td><?php  echo $tampil_spesifik['BRAND']; ?></td>
-                                        <td><?php  echo $tampil_spesifik['NETSALES']; ?></td>
-                                        <td><?php  echo $tampil_spesifik['QTY_TERJUAL']; ?></td>
-                                        <td><?php  echo $tampil_spesifik['TOTALITEM']; ?></td>
-                                      </tr>
-                                      <?php 
-                                    }
-                                  } 
-                                } 
-                              } ?>
-                            </tbody>
-                          </table>
-                        </div>
-                        <?php   
+                      if ($tampil_transaksi_final['KATEGORI']==$_GET['kategori']) { 
                       }
-                    }
+                    }?>
+                    <div class="table-responsive">
+                      <table class="table table-hover table-striped">
+                        <thead>
+                          <th>No</th>
+                          <th>Nama Barang</th>
+                          <th>Kategori</th>
+                          <th>Terjual</th>
+                          <th>Total Modal</th>
+                          <th>Total Jual</th>
+                          <th>Keuntungan</th>
+                          <th>Stok</th>
+                        </thead>
+                        <tfoot>
+                          <th>No</th>
+                          <th>Nama Barang</th>
+                          <th>Kategori</th>
+                          <th>Terjual</th>
+                          <th>Total Modal</th>
+                          <th>Total Jual</th>
+                          <th>Keuntungan</th>
+                          <th>Stok</th>
+                        </tfoot>
+                        <tbody>
+                          <?php
+                          $no=1;
+                          foreach($tampil_transaksi as $tampil_transaksi_value =>$tampil_transaksi_final){
+                            if (isset($tampil_transaksi_final['KATEGORI']) and $tampil_transaksi_final['KATEGORI']==$_GET['kategori']) { 
+                              $beli=$tampil_transaksi_final['COSTPRICE'];
+                              $jual=$tampil_transaksi_final['NETSALES'];
+                              $qty=$tampil_transaksi_final['QTY_TERJUAL'];
+                              $profit=$tampil_transaksi_final['PROFIT'];
+                              ?>
+                              <tr>
+                                <td width="30px" class="text-center"><?=$no++?></td>
+                                <td><?php  echo $tampil_transaksi_final['BRAND']; ?></td>
+                                <td><?php  echo $tampil_transaksi_final['KATEGORI']; ?></td>
+                                <td><?php  echo $tampil_transaksi_final['QTY_TERJUAL']; ?></td>
+                                <td><?php  echo "Rp. ".number_format($beli*$qty); ?></td>
+                                <td><?php  echo "Rp. ".number_format($jual*$qty); ?></td>
+                                <td><?php  echo "Rp. ".number_format($profit*$qty); ?></td>
+                                <td><?php  echo $tampil_transaksi_final['STOK']; ?></td>
+                              </tr>
+                              <?php 
+                            } 
+                          } ?>
+                        </tbody>
+                      </table>
+                    </div>
+                    <?php   
+                //   }
+                // }
                     ?>
                   <?php endif ?>
                 </div>
